@@ -1,68 +1,348 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="nl">
+
 <head>
     <meta charset="UTF-8">
-    <title>NL.TEAM | نظام الطلبات</title>
-    <style>
-        body { font-family: sans-serif; padding: 20px; max-width: 400px; margin: auto; background: #f4f4f4; text-align: center; }
-        .step { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
-        button { width: 100%; padding: 15px; background: #000; color: #fff; border: none; border-radius: 8px; cursor: pointer; margin-top: 10px; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NL.TEAM | Bestellen</title>
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
 
-    <div id="step1" class="step">
-        <h1>مرحباً بك في NL.TEAM 👋</h1>
-        <select id="orderItem">
-            <option value="سناك 1">سناك 1 - 5€</option>
-            <option value="سناك 2">سناك 2 - 7€</option>
-        </select>
-        <button onclick="nextStep(2)">التالي</button>
-    </div>
+    <!-- Overlay -->
+    <div id="overlay"></div>
 
-    <div id="step2" class="step" style="display:none;">
-        <h1>بيانات التوصيل 📍</h1>
-        <input type="text" id="customerName" placeholder="الاسم الكامل">
-        <input type="text" id="address" placeholder="العنوان في دوتينخيم">
-        <button onclick="nextStep(3)">التالي</button>
-    </div>
+    <!-- Header -->
+    <header class="header">
 
-    <div id="step3" class="step" style="display:none;">
-        <h1>اللمسة الأخيرة 📝</h1>
-        <input type="tel" id="phone" placeholder="رقم الواتساب (مثال: 316...)">
-        <textarea id="notes" placeholder="ملاحظات إضافية"></textarea>
-        <button onclick="submitOrder()">تأكيد الطلب</button>
-    </div>
+        <div class="logo">
+            <span class="gold">NL.</span>TEAM
+        </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        <button class="cart-button" id="cartButton">
+            <span>🛒</span>
+            <span id="cartCount">0</span>
+        </button>
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyDXIty5TGVNu37oLDYtWFjgA-pLcnqgEmU",
-            databaseURL: "https://nl-team-default-rtdb.europe-west1.firebasedatabase.app"
-        };
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
+    </header>
 
-        window.nextStep = (step) => {
-            document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
-            document.getElementById('step' + step).style.display = 'block';
-        };
+    <!-- Hero -->
+    <section class="hero">
 
-        window.submitOrder = () => {
-            const data = {
-                item: document.getElementById("orderItem").value,
-                customer: document.getElementById("customerName").value,
-                address: document.getElementById("address").value,
-                phone: document.getElementById("phone").value,
-                notes: document.getElementById("notes").value,
-                status: "جديد",
-                timestamp: Date.now()
-            };
-            push(ref(db, 'orders/'), data).then(() => alert("تم إرسال طلبك! بنشوفك قريباً."));
-        };
-    </script>
+        <div class="hero-content">
+
+            <span class="badge">
+                Premium Delivery Service
+            </span>
+
+            <h1>
+                Snel geleverd in Doetinchem
+            </h1>
+
+            <p>
+                Bestel eenvoudig jouw favoriete snacks.
+                Veilig betalen met iDEAL.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- Products -->
+    <main class="container">
+
+        <section class="section-header">
+
+            <h2>Onze Producten</h2>
+
+            <p>
+                Kies jouw favoriete producten
+            </p>
+
+        </section>
+
+        <section id="productsGrid" class="products-grid">
+
+            <!-- Firebase Products -->
+
+            <div class="loading-card">
+                Producten laden...
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Cart Sidebar -->
+
+    <aside id="cartSidebar" class="cart-sidebar">
+
+        <div class="cart-header">
+
+            <h2>Winkelwagen</h2>
+
+            <button id="closeCart">
+                ✕
+            </button>
+
+        </div>
+
+        <div id="cartItems" class="cart-items">
+
+            <div class="empty-cart">
+
+                <div class="empty-icon">
+                    🛒
+                </div>
+
+                <p>
+                    Je winkelwagen is leeg
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="cart-footer">
+
+            <div class="price-row">
+
+                <span>Subtotaal</span>
+
+                <span id="subtotalPrice">
+                    €0.00
+                </span>
+
+            </div>
+
+            <div class="price-row">
+
+                <span>Bezorgkosten</span>
+
+                <span id="deliveryFee">
+                    €2.50
+                </span>
+
+            </div>
+
+            <div class="price-row total">
+
+                <span>Totaal</span>
+
+                <span id="totalPrice">
+                    €2.50
+                </span>
+
+            </div>
+
+            <button id="checkoutButton" class="primary-button">
+
+                Doorgaan naar afrekenen
+
+            </button>
+
+        </div>
+
+    </aside>
+
+    <!-- Checkout Modal -->
+
+    <section id="checkoutModal" class="checkout-modal">
+
+        <div class="checkout-container">
+
+            <div class="checkout-header">
+
+                <h2>Afrekenen</h2>
+
+                <button id="closeCheckout">
+                    ✕
+                </button>
+
+            </div>
+
+            <!-- Stepper -->
+
+            <div class="stepper">
+
+                <div class="step active">
+                    1
+                </div>
+
+                <div class="line"></div>
+
+                <div class="step">
+                    2
+                </div>
+
+                <div class="line"></div>
+
+                <div class="step">
+                    3
+                </div>
+
+            </div>
+
+            <!-- Step 1 -->
+
+            <div class="checkout-step active-step" id="step1">
+
+                <h3>Persoonlijke gegevens</h3>
+
+                <input
+                    type="text"
+                    id="customerName"
+                    placeholder="Volledige naam">
+
+                <input
+                    type="tel"
+                    id="customerPhone"
+                    placeholder="Telefoonnummer">
+
+                <button
+                    class="primary-button next-step"
+                    data-next="step2">
+
+                    Volgende
+
+                </button>
+
+            </div>
+
+            <!-- Step 2 -->
+
+            <div class="checkout-step" id="step2">
+
+                <h3>Bezorgadres</h3>
+
+                <input
+                    type="text"
+                    id="street"
+                    placeholder="Straatnaam">
+
+                <input
+                    type="text"
+                    id="houseNumber"
+                    placeholder="Huisnummer">
+
+                <input
+                    type="text"
+                    id="postcode"
+                    placeholder="Postcode">
+
+                <input
+                    type="text"
+                    id="city"
+                    placeholder="Plaats">
+
+                <button
+                    class="primary-button next-step"
+                    data-next="step3">
+
+                    Volgende
+
+                </button>
+
+            </div>
+
+            <!-- Step 3 -->
+
+            <div class="checkout-step" id="step3">
+
+                <h3>Betaling</h3>
+
+                <div class="payment-card">
+
+                    <div class="payment-logo">
+                        iDEAL
+                    </div>
+
+                    <p>
+                        Veilig betalen via iDEAL
+                    </p>
+
+                </div>
+
+                <textarea
+                    id="orderNotes"
+                    placeholder="Extra opmerkingen">
+                </textarea>
+
+                <button
+                    id="placeOrderButton"
+                    class="gold-button">
+
+                    Betaal met iDEAL
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Success Screen -->
+
+    <section id="successScreen" class="success-screen">
+
+        <div class="success-card">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <h2>
+                Bestelling ontvangen
+            </h2>
+
+            <p>
+                Bedankt voor je bestelling.
+            </p>
+
+            <div id="orderNumber">
+
+            </div>
+
+            <button
+                onclick="location.reload()"
+                class="primary-button">
+
+                Nieuwe bestelling
+
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+
+    <footer class="footer">
+
+        <p>
+            © 2026 NL.TEAM
+        </p>
+
+    </footer>
+
+    <!-- Firebase -->
+
+    <script type="module" src="js/firebase.js"></script>
+
+    <!-- App -->
+
+    <script type="module" src="js/products.js"></script>
+    <script type="module" src="js/cart.js"></script>
+    <script type="module" src="js/checkout.js"></script>
+
 </body>
+
 </html>
