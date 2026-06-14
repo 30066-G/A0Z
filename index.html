@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>NL.TEAM | نظام الطلبات</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 50px; background: #f4f4f4; }
+        input { display: block; margin: 10px auto; padding: 10px; width: 80%; max-width: 300px; }
+        button { padding: 10px 20px; background: #000; color: #fff; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h1>NL.TEAM Order Entry</h1>
+    <input type="text" id="customerName" placeholder="اسم الزبون">
+    <input type="text" id="orderItem" placeholder="الطلب">
+    <button onclick="submitOrder()">إرسال الطلب</button>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        // إعدادات Firebase الخاصة بمشروعك
+        const firebaseConfig = {
+            apiKey: "AIzaSyDXIty5TGVNu37oLDYtWFjgA-pLcnqgEmU",
+            authDomain: "nl-team.firebaseapp.com",
+            projectId: "nl-team",
+            databaseURL: "https://nl-team-default-rtdb.europe-west1.firebasedatabase.app",
+            storageBucket: "nl-team.firebasestorage.app",
+            messagingSenderId: "165944460560",
+            appId: "1:165944460560:web:7435e881c6823413d3d195"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        window.submitOrder = () => {
+            const customer = document.getElementById("customerName").value;
+            const item = document.getElementById("orderItem").value;
+            
+            if(!customer || !item) { alert("يرجى تعبئة البيانات"); return; }
+
+            push(ref(db, 'orders/'), {
+                customer: customer,
+                item: item,
+                timestamp: Date.now(),
+                status: "pending"
+            }).then(() => alert("تم إرسال الطلب يا وحش!"));
+        };
+    </script>
+</body>
+</html>
