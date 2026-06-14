@@ -1,0 +1,259 @@
+/* ===================================
+   NL.TEAM PREMIUM THEME
+=================================== */
+:root {
+    --gold: #d4af37;
+    --gold-hover: #f0c54a;
+    --silver: #c0c0c0;
+    --silver-light: #e5e5e5;
+    --black: #0d0d0d;
+    --dark: #151515;
+    --card: #1c1c1c;
+    --text: #ffffff;
+    --text-muted: #a8a8a8;
+    --border: rgba(255,255,255,.08);
+    --shadow:
+        0 10px 30px rgba(0,0,0,.35);
+    --radius: 20px;
+}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+html{
+    scroll-behavior:smooth;
+}
+body{
+    font-family:'Inter',sans-serif;
+    background:
+        radial-gradient(
+            circle at top,
+            #222 0%,
+            #111 35%,
+            #0a0a0a 100%
+        );
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+}
+/* ===================================
+   SCROLLBAR
+=================================== */
+::-webkit-scrollbar{
+    width:10px;
+}
+::-webkit-scrollbar-track{
+    background:#111;
+}
+::-webkit-scrollbar-thumb{
+    background:var(--gold);
+    border-radius:50px;
+}
+/* ===================================
+   HEADER
+=================================== */
+.header{
+    position:sticky;
+    top:0;
+    z-index:999;
+    backdrop-filter:blur(16px);
+    background:
+        rgba(10,10,10,.8);
+    border-bottom:
+        1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 30px;
+}
+.logo{
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+.gold{
+    color:var(--gold);
+}
+.cart-button{
+    width:55px;
+    height:55px;
+    border:none;
+    border-radius:16px;
+    background:var(--card);
+    color:white;
+    cursor:pointer;
+    font-size:18px;
+    position:relative;
+    transition:.3s;
+}
+.cart-button:hover{
+    transform:translateY(-3px);
+    box-shadow:var(--shadow);
+}
+#cartCount{
+    position:absolute;
+    top:-5px;
+    right:-5px;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    background:var(--gold);
+    color:black;
+    font-size:12px;
+    font-weight:800;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+/* ===================================
+   HERO
+=================================== */
+.hero{
+    min-height:55vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:80px 20px;
+}
+.hero-content{
+    max-width:700px;
+}
+.badge{
+    display:inline-block;
+    padding:10px 18px;
+    border-radius:999px;
+    background:
+        rgba(212,175,55,.15);
+    color:var(--gold);
+    border:
+        1px solid rgba(212,175,55,.35);
+    margin-bottom:25px;
+    font-weight:600;
+}
+.hero h1{
+    font-size:60px;
+    font-weight:900;
+    margin-bottom:20px;
+    line-height:1.1;
+}
+.hero p{
+    font-size:18px;
+    color:var(--text-muted);
+    line-height:1.8;
+}
+/* ===================================
+   CONTAINER
+=================================== */
+.container{
+    width:min(1300px,92%);
+    margin:auto;
+}
+.section-header{
+    text-align:center;
+    margin-bottom:40px;
+}
+.section-header h2{
+    font-size:40px;
+    margin-bottom:10px;
+}
+.section-header p{
+    color:var(--text-muted);
+}
+/* ===================================
+   PRODUCTS GRID
+=================================== */
+.products-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+    margin-bottom:100px;
+}
+.loading-card{
+    background:var(--card);
+    border-radius:var(--radius);
+    padding:50px;
+    text-align:center;
+    border:1px solid var(--border);
+}
+/* ===================================
+   INPUTS
+=================================== */
+input,
+textarea{
+    width:100%;
+    padding:16px;
+    border-radius:16px;
+    border:1px solid var(--border);
+    background:#111;
+    color:white;
+    outline:none;
+    margin-bottom:15px;
+}
+input:focus,
+textarea:focus{
+    border-color:var(--gold);
+}
+textarea{
+    resize:none;
+    min-height:120px;
+}
+/* ===================================
+   BUTTONS
+=================================== */
+.primary-button{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:16px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:700;
+    background:white;
+    color:black;
+    transition:.3s;
+}
+.primary-button:hover{
+    transform:translateY(-2px);
+}
+.gold-button{
+    width:100%;
+    padding:18px;
+    border:none;
+    border-radius:16px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:800;
+    background:var(--gold);
+    color:black;
+    transition:.3s;
+}
+.gold-button:hover{
+    background:var(--gold-hover);
+    transform:translateY(-3px);
+}
+/* ===================================
+   FOOTER
+=================================== */
+.footer{
+    border-top:1px solid var(--border);
+    padding:30px;
+    text-align:center;
+    color:var(--text-muted);
+}
+/* ===================================
+   RESPONSIVE
+=================================== */
+@media(max-width:768px){
+    .hero h1{
+        font-size:38px;
+    }
+    .section-header h2{
+        font-size:30px;
+    }
+    .header{
+        padding:15px;
+    }
+}
