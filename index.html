@@ -4,48 +4,64 @@
     <meta charset="UTF-8">
     <title>NL.TEAM | نظام الطلبات</title>
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 50px; background: #f4f4f4; }
-        input { display: block; margin: 10px auto; padding: 10px; width: 80%; max-width: 300px; }
-        button { padding: 10px 20px; background: #000; color: #fff; border: none; cursor: pointer; }
+        body { font-family: sans-serif; padding: 20px; max-width: 400px; margin: auto; background: #f4f4f4; text-align: center; }
+        .step { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background: #000; color: #fff; border: none; border-radius: 8px; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <h1>NL.TEAM Order Entry</h1>
-    <input type="text" id="customerName" placeholder="اسم الزبون">
-    <input type="text" id="orderItem" placeholder="الطلب">
-    <button onclick="submitOrder()">إرسال الطلب</button>
+    <div id="step1" class="step">
+        <h1>مرحباً بك في NL.TEAM 👋</h1>
+        <select id="orderItem">
+            <option value="سناك 1">سناك 1 - 5€</option>
+            <option value="سناك 2">سناك 2 - 7€</option>
+        </select>
+        <button onclick="nextStep(2)">التالي</button>
+    </div>
+
+    <div id="step2" class="step" style="display:none;">
+        <h1>بيانات التوصيل 📍</h1>
+        <input type="text" id="customerName" placeholder="الاسم الكامل">
+        <input type="text" id="address" placeholder="العنوان في دوتينخيم">
+        <button onclick="nextStep(3)">التالي</button>
+    </div>
+
+    <div id="step3" class="step" style="display:none;">
+        <h1>اللمسة الأخيرة 📝</h1>
+        <input type="tel" id="phone" placeholder="رقم الواتساب (مثال: 316...)">
+        <textarea id="notes" placeholder="ملاحظات إضافية"></textarea>
+        <button onclick="submitOrder()">تأكيد الطلب</button>
+    </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-        // إعدادات Firebase الخاصة بمشروعك
         const firebaseConfig = {
             apiKey: "AIzaSyDXIty5TGVNu37oLDYtWFjgA-pLcnqgEmU",
-            authDomain: "nl-team.firebaseapp.com",
-            projectId: "nl-team",
-            databaseURL: "https://nl-team-default-rtdb.europe-west1.firebasedatabase.app",
-            storageBucket: "nl-team.firebasestorage.app",
-            messagingSenderId: "165944460560",
-            appId: "1:165944460560:web:7435e881c6823413d3d195"
+            databaseURL: "https://nl-team-default-rtdb.europe-west1.firebasedatabase.app"
         };
-
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        window.submitOrder = () => {
-            const customer = document.getElementById("customerName").value;
-            const item = document.getElementById("orderItem").value;
-            
-            if(!customer || !item) { alert("يرجى تعبئة البيانات"); return; }
+        window.nextStep = (step) => {
+            document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
+            document.getElementById('step' + step).style.display = 'block';
+        };
 
-            push(ref(db, 'orders/'), {
-                customer: customer,
-                item: item,
-                timestamp: Date.now(),
-                status: "pending"
-            }).then(() => alert("تم إرسال الطلب يا وحش!"));
+        window.submitOrder = () => {
+            const data = {
+                item: document.getElementById("orderItem").value,
+                customer: document.getElementById("customerName").value,
+                address: document.getElementById("address").value,
+                phone: document.getElementById("phone").value,
+                notes: document.getElementById("notes").value,
+                status: "جديد",
+                timestamp: Date.now()
+            };
+            push(ref(db, 'orders/'), data).then(() => alert("تم إرسال طلبك! بنشوفك قريباً."));
         };
     </script>
 </body>
