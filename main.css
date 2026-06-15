@@ -309,6 +309,15 @@ textarea{
     text-align:center;
     color:var(--text-muted);
 }
+.trust-bar{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    padding:25px;
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    color:var(--silver);
+}
 /* ===================================
    RESPONSIVE
 =================================== */
