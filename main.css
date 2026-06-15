@@ -1,57 +1,43 @@
 /* ===================================
    NL.TEAM PREMIUM THEME V2
 =================================== */
-:root{
-    --gold:#c89b3c;
-    --gold-hover:#d7ab4d;
-
-    --black:#080808;
-    --dark:#101010;
-    --card:#171717;
-
-    --text:#ffffff;
-    --text-muted:#9f9f9f;
-
-    --border:rgba(255,255,255,.05);
-
-    --shadow:
-        0 20px 40px rgba(0,0,0,.35);
-
-    --radius:24px;
+:root {
+    --gold: #c89b3c;
+    --gold-hover: #d7ab4d;
+    --black: #080808;
+    --dark: #101010;
+    --card: #171717;
+    --text: #ffffff;
+    --text-muted: #9f9f9f;
+    --border: rgba(255, 255, 255, .05);
+    --shadow: 0 20px 40px rgba(0, 0, 0, .35);
+    --radius: 24px;
+    --bg-gradient: radial-gradient(
+        circle at top,
+        #2a3025 0%,
+        #151a12 40%,
+        #050704 100%
+    );
 }
 
-/* ===================================
-   RESET
-=================================== */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-html{
-    scroll-behavior:smooth;
+html {
+    scroll-behavior: smooth;
 }
 
-body{
-
-    font-family:'Inter',sans-serif;
-
-    background:
-        radial-gradient(
-            circle at top,
-            #1f1f1f 0%,
-            #111 40%,
-            #080808 100%
-        );
-
-    color:var(--text);
-
-    min-height:100vh;
-
-    overflow-x:hidden;
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
 }
+
 
 /* ===================================
    SCROLLBAR
