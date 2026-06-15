@@ -273,3 +273,39 @@ closeAbout?.addEventListener(
 
     }
 );
+const contactButton =
+    document.getElementById(
+        "contactButton"
+    );
+
+const contactModal =
+    document.getElementById(
+        "contactModal"
+    );
+
+const closeContact =
+    document.getElementById(
+        "closeContact"
+    );
+
+contactButton?.addEventListener(
+    "click",
+    () => {
+
+        contactModal.classList.add(
+            "active"
+        );
+
+    }
+);
+
+closeContact?.addEventListener(
+    "click",
+    () => {
+
+        contactModal.classList.remove(
+            "active"
+        );
+
+    }
+);
