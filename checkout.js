@@ -1,6 +1,14 @@
 // ===================================
 // NL.TEAM CHECKOUT
 // ===================================
+import { db } from "./firebase.js";
+
+import {
+    ref,
+    push,
+    set
+} from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 const checkoutButton =
     document.getElementById(
         "checkoutButton"
@@ -185,59 +193,163 @@ function generateOrderNumber() {
         );
     return `NL-${random}`;
 }
-// ===================================
-// PLACE ORDER
-// ===================================
 placeOrderButton?.addEventListener(
     "click",
     async () => {
+
         const items =
             window.getCartItems();
+
         if (!items.length) {
+
             alert(
                 "Geen producten gevonden."
             );
+
             return;
         }
+
         placeOrderButton.disabled =
             true;
+
         placeOrderButton.innerText =
             "Verwerken...";
+
         try {
-            // ===================================
-            // HIER KOMT LATER:
-            // MOLLIE / iDEAL
-            // FIREBASE SAVE
-            // ===================================
-            await new Promise(
-                resolve =>
-                    setTimeout(
-                        resolve,
-                        1500
-                    )
-            );
+
             const orderId =
                 generateOrderNumber();
+
+            const customerName =
+                document
+                .getElementById(
+                    "customerName"
+                )
+                .value
+                .trim();
+
+            const customerPhone =
+                document
+                .getElementById(
+                    "customerPhone"
+                )
+                .value
+                .trim();
+
+            const street =
+                document
+                .getElementById(
+                    "street"
+                )
+                .value
+                .trim();
+
+            const houseNumber =
+                document
+                .getElementById(
+                    "houseNumber"
+                )
+                .value
+                .trim();
+
+            const postcode =
+                document
+                .getElementById(
+                    "postcode"
+                )
+                .value
+                .trim();
+
+            const city =
+                document
+                .getElementById(
+                    "city"
+                )
+                .value
+                .trim();
+
+            const notes =
+                document
+                .getElementById(
+                    "orderNotes"
+                )
+                .value
+                .trim();
+
+            const total =
+                window.getCartTotal();
+
+            const newOrderRef =
+                push(
+                    ref(
+                        db,
+                        "orders"
+                    )
+                );
+
+            await set(
+                newOrderRef,
+                {
+
+                    orderId,
+
+                    customerName,
+
+                    customerPhone,
+
+                    address: {
+
+                        street,
+
+                        houseNumber,
+
+                        postcode,
+
+                        city
+                    },
+
+                    notes,
+
+                    items,
+
+                    total,
+
+                    status:
+                        "pending",
+
+                    createdAt:
+                        Date.now()
+                }
+            );
+
             orderNumber.innerHTML =
                 `
                 Bestelnummer:
                 <br>
                 <strong>${orderId}</strong>
                 `;
+
             checkoutModal.classList.remove(
                 "active"
             );
+
             successScreen.classList.add(
                 "active"
             );
+
         } catch (error) {
+
             console.error(error);
+
             alert(
-                "Er ging iets mis."
+                "Opslaan mislukt."
             );
+
         } finally {
+
             placeOrderButton.disabled =
                 false;
+
             placeOrderButton.innerText =
                 "Betaal met iDEAL";
         }
