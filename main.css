@@ -75,6 +75,37 @@ body{
 .gold{
     color:var(--gold);
 }
+.header-actions{
+    display:flex;
+    gap:12px;
+    align-items:center;
+}
+
+.icon-button{
+
+    width:55px;
+    height:55px;
+
+    border:none;
+    cursor:pointer;
+
+    border-radius:16px;
+
+    background:var(--card);
+
+    color:white;
+
+    font-size:20px;
+
+    transition:.3s;
+}
+
+.icon-button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:var(--shadow);
+}
 .cart-button{
     width:55px;
     height:55px;
