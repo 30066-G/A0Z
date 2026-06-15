@@ -243,69 +243,47 @@ placeOrderButton?.addEventListener(
         }
     }
 );
-const aboutButton =
-    document.getElementById("aboutButton");
+// ===================================
+// ABOUT MODAL
+// ===================================
 
-const aboutModal =
-    document.getElementById("aboutModal");
+const aboutButton = document.getElementById("aboutButton");
+const aboutModal = document.getElementById("aboutModal");
+const closeAbout = document.getElementById("closeAbout");
 
-const closeAbout =
-    document.getElementById("closeAbout");
+if (aboutButton && aboutModal) {
+    aboutButton.addEventListener("click", () => {
+        aboutModal.classList.add("active");
+    });
+}
 
-aboutButton?.addEventListener(
-    "click",
-    () => {
+if (closeAbout && aboutModal) {
+    closeAbout.addEventListener("click", () => {
+        aboutModal.classList.remove("active");
+    });
+}
 
-        aboutModal.classList.add(
-            "active"
-        );
+// ===================================
+// CONTACT MODAL
+// ===================================
 
-    }
-);
+const contactButton = document.getElementById("contactButton");
+const contactModal = document.getElementById("contactModal");
+const closeContact = document.getElementById("closeContact");
 
-closeAbout?.addEventListener(
-    "click",
-    () => {
+console.log("contactButton:", contactButton);
+console.log("contactModal:", contactModal);
+console.log("closeContact:", closeContact);
 
-        aboutModal.classList.remove(
-            "active"
-        );
+if (contactButton && contactModal) {
+    contactButton.addEventListener("click", () => {
+        console.log("CONTACT CLICKED");
+        contactModal.classList.add("active");
+    });
+}
 
-    }
-);
-const contactButton =
-    document.getElementById(
-        "contactButton"
-    );
-
-const contactModal =
-    document.getElementById(
-        "contactModal"
-    );
-
-const closeContact =
-    document.getElementById(
-        "closeContact"
-    );
-
-contactButton?.addEventListener(
-    "click",
-    () => {
-
-        contactModal.classList.add(
-            "active"
-        );
-
-    }
-);
-
-closeContact?.addEventListener(
-    "click",
-    () => {
-
-        contactModal.classList.remove(
-            "active"
-        );
-
-    }
-);
+if (closeContact && contactModal) {
+    closeContact.addEventListener("click", () => {
+        contactModal.classList.remove("active");
+    });
+}
