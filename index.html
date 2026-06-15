@@ -11,9 +11,24 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
-
 <body>
+<div id="pageLoader">
 
+    <div class="loader-box">
+
+        <div class="loader-logo">
+            <span>NL.</span>TEAM
+        </div>
+
+        <div class="loader-spinner"></div>
+
+        <p>
+            Producten laden...
+        </p>
+
+    </div>
+
+</div>
     <!-- Overlay -->
     <div id="overlay"></div>
 
@@ -70,6 +85,63 @@
     </section>
 </section>
 
+    <h2>
+        Wat klanten zeggen
+    </h2>
+
+    <div class="reviews-grid">
+
+        <div class="review-card">
+
+            <div class="stars">
+                ★★★★★
+            </div>
+
+            <p>
+                Snelle levering en top service.
+            </p>
+
+            <strong>
+                Mike
+            </strong>
+
+        </div>
+
+        <div class="review-card">
+
+            <div class="stars">
+                ★★★★★
+            </div>
+
+            <p>
+                Beste snacks in Doetinchem.
+            </p>
+
+            <strong>
+                Sarah
+            </strong>
+
+        </div>
+
+        <div class="review-card">
+
+            <div class="stars">
+                ★★★★★
+            </div>
+
+            <p>
+                Op tijd geleverd.
+            </p>
+
+            <strong>
+                Kevin
+            </strong>
+
+        </div>
+
+    </div>
+
+</section>
 <div class="trust-bar">
 
     <span>⚡ Snelle levering</span>
@@ -80,32 +152,28 @@
 
 </div>
 
-<!-- Products -->
-<main class="container">
     <!-- Products -->
-    <main class="container">
+<main class="container">
 
-        <section class="section-header">
+    <section class="section-header">
 
-            <h2>Onze Producten</h2>
+        <h2>Onze Producten</h2>
 
-            <p>
-                Kies jouw favoriete producten
-            </p>
+        <p>
+            Kies jouw favoriete producten
+        </p>
 
-        </section>
+    </section>
 
-        <section id="productsGrid" class="products-grid">
+    <section id="productsGrid" class="products-grid">
 
-            <!-- Firebase Products -->
+        <div class="loading-card">
+            Producten laden...
+        </div>
 
-            <div class="loading-card">
-                Producten laden...
-            </div>
+    </section>
 
-        </section>
-
-    </main>
+</main>
 
     <!-- Cart Sidebar -->
 
@@ -429,6 +497,7 @@
 <script src="products.js"></script>
 <script src="cart.js"></script>
 <script src="checkout.js"></script>
+<script src="loader.js"></script>
 </body>
 
 </html>
