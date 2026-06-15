@@ -22,22 +22,29 @@
         <span class="gold">NL.</span>TEAM
     </div>
 
-    <div class="header-actions">
+    <nav class="header-nav">
 
-        <button id="aboutButton" class="icon-button">
-            ℹ️
+        <button id="aboutButton" class="nav-btn">
+            Over Ons
+        </button>
+
+        <button id="contactButton" class="nav-btn">
+            Contact
         </button>
 
         <button class="cart-button" id="cartButton">
+
             <span>🛒</span>
-            <span id="cartCount">0</span>
+
+            <span id="cartCount">
+                0
+            </span>
+
         </button>
 
-    </div>
+    </nav>
 
 </header>
-
-    </header>
 
     <!-- Hero -->
     <section class="hero">
@@ -373,7 +380,38 @@
     </div>
 
 </div>
+<div id="contactModal" class="checkout-modal">
 
+    <div class="checkout-container">
+
+        <div class="checkout-header">
+
+            <h2>Contact</h2>
+
+            <button id="closeContact">
+                ✕
+            </button>
+
+        </div>
+
+        <div style="padding:30px">
+
+            <p>
+                Email:
+                contact@nl.team
+            </p>
+
+            <br>
+
+            <p>
+                Doetinchem
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
 <script src="products.js"></script>
 <script src="cart.js"></script>
 <script src="checkout.js"></script>
