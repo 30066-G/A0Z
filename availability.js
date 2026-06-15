@@ -7,8 +7,8 @@ const hour =
     new Date().getHours();
 
 if (
-    hour >= 16 ||
-    hour < 2
+    hour >= 22 ||
+    hour < 4
 ) {
 
     statusBar.innerText =
