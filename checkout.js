@@ -243,3 +243,33 @@ placeOrderButton?.addEventListener(
         }
     }
 );
+const aboutButton =
+    document.getElementById("aboutButton");
+
+const aboutModal =
+    document.getElementById("aboutModal");
+
+const closeAbout =
+    document.getElementById("closeAbout");
+
+aboutButton?.addEventListener(
+    "click",
+    () => {
+
+        aboutModal.classList.add(
+            "active"
+        );
+
+    }
+);
+
+closeAbout?.addEventListener(
+    "click",
+    () => {
+
+        aboutModal.classList.remove(
+            "active"
+        );
+
+    }
+);
