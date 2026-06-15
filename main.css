@@ -126,6 +126,43 @@ body {
         rgba(200,155,60,.08);
 }
 /* ===================================
+   STATUS BAR
+=================================== */
+
+.status-bar{
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+
+    padding:14px;
+
+    background:
+        rgba(212,175,55,.08);
+
+    border-bottom:
+        1px solid rgba(212,175,55,.15);
+
+    color:var(--silver);
+
+    font-size:14px;
+    font-weight:600;
+}
+
+.status-dot{
+
+    width:10px;
+    height:10px;
+
+    border-radius:50%;
+
+    background:#22c55e;
+
+    box-shadow:
+        0 0 12px #22c55e;
+}
+/* ===================================
    REVIEWS
 =================================== */
 
