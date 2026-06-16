@@ -25,21 +25,16 @@ onValue(ref(db, "products"), snapshot => {
     window.products = products;
     renderProducts();
 });
-
-
 function renderProducts(filter = 'all') {
     if (!productsGrid) return;
     productsGrid.innerHTML = "";
-    
-    console.log("Current Filter:", filter);
 
     products.forEach(product => {
-        const productCat = (product.category || 'uncategorized').toString().trim().toLowerCase();
-        const filterCat = filter.toString().trim().toLowerCase();
 
-        console.log(`Product: ${product.name}, Category: ${productCat}`);
+        const pCategory = (product.category || 'uncategorized').toLowerCase();
+        const fCategory = filter.toLowerCase();
 
-        if (filter !== 'all' && productCat !== filterCat) return;
+        if (filter !== 'all' && pCategory !== fCategory) return;
 
         const card = document.createElement("div");
         card.classList.add("product-card");
@@ -58,9 +53,14 @@ function renderProducts(filter = 'all') {
         productsGrid.appendChild(card);
     });
 
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        const btnFilter = btn.getAttribute('onclick').match(/'([^']+)'/)[1];
+        btn.style.backgroundColor = (btnFilter.toLowerCase() === filter.toLowerCase()) ? '#d4af37' : 'transparent';
+        btn.style.color = (btnFilter.toLowerCase() === filter.toLowerCase()) ? '#000' : '#fff';
+    });
+
     activateButtons();
 }
-
 
 window.filterProducts = renderProducts;
 
