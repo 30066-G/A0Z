@@ -30,10 +30,16 @@ onValue(ref(db, "products"), snapshot => {
 function renderProducts(filter = 'all') {
     if (!productsGrid) return;
     productsGrid.innerHTML = "";
+    
+    console.log("Current Filter:", filter);
 
     products.forEach(product => {
+        const productCat = (product.category || 'uncategorized').toString().trim().toLowerCase();
+        const filterCat = filter.toString().trim().toLowerCase();
 
-        if (filter !== 'all' && product.category !== filter) return;
+        console.log(`Product: ${product.name}, Category: ${productCat}`);
+
+        if (filter !== 'all' && productCat !== filterCat) return;
 
         const card = document.createElement("div");
         card.classList.add("product-card");
