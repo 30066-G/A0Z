@@ -66,14 +66,29 @@ window.filterProducts = renderProducts;
 
 function activateButtons() {
     const buttons = document.querySelectorAll(".add-to-cart");
+
     buttons.forEach(button => {
+
         button.addEventListener("click", () => {
+
+            console.log("CLICKED");
+
             const id = button.dataset.id;
-            const product = products.find(p => p.id === id);
+
+            const product = products.find(
+                p => p.id === id
+            );
+
+            console.log("PRODUCT:", product);
+            console.log("ADDTOCART:", window.addToCart);
+
             if (!product) return;
+
             if (window.addToCart) {
                 window.addToCart(product);
             }
+
         });
+
     });
 }
